@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin</title>
+    <link rel="stylesheet" href="style/main.css">
+</head>
+<body>
+    <div class="container">
+        <form id="admin" action="/submit" method="post" style="margin-top: 70px;">
+            <table>
+                <tr>
+                    <th><label for="movieName">Enter movie name:</label></th>
+                    <th><input type="text" id="movieName" name="movieName" placeholder="Search for the movie" required><br></th>
+                </tr>
+                <tr>
+                    <th colspan="2" style="text-align: center; font-weight: bolder;"><button id="recommend" onclick="updateRecommendations()">Recommend</button></th>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <ul id="recommendations"></ul> 
+                    </th>
+                </tr>
+                <tr>
+                    <th><label for="summary">Summary:</label></th>
+                    <th><textarea id="summary" name="summary" placeholder="Enter short summary of the movie here..." style="height: 100px; width: 100%;" required></textarea><br></th>
+                </tr>
+                <tr>
+                    <th> <label for="DateWatched">Date watched:</label></th>
+                    <th><input name="dateWatched" type="date" id="dateWatched" style="height: 30px;" onchange="validateDate()" required><br></th>
+                </tr>
+                <tr>
+                    <th><label for="Rating">Rating: </label></th>
+                    <th><input name="rating" type="number" id="rating" min="1" max="10" placeholder="Rate it out of 10..." required><br></th>
+                </tr>
+                <tr>
+                    <th colspan="2" style="text-align: center; padding-top: 30px ; font-weight: bolder;"><input type="submit" value="Submit"></th>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <script>
+         const recommendationsData = [
+            "Apple",
+            "Banana",
+            "Cherry",
+            "Date",
+            "Fig",
+            "Grapes",
+            "Kiwi",
+            "Lemon",
+            "Mango",
+            "Orange",
+            "Pear",
+            "Quince",
+            "Raspberry",
+            "Strawberry",
+            "Watermelon",
+            "Salamon"
+        ];
+
+        function updateRecommendations() {
+            const searchTerm = document.getElementById("movieName").value.toLowerCase();
+            const filteredRecommendations = recommendationsData.filter(item => item.toLowerCase().startsWith(searchTerm));
+            const recommendationList = document.getElementById("recommendations");
+            recommendationList.innerHTML = ""; // Clear previous recommendations
+            if (searchTerm === "") {
+                recommendationList.style.display = "none"; // Hide recommendations when input is empty
+            }else if (filteredRecommendations.length === 0 ){
+                recommendationList.innerHTML = '<li style="color:red">Not Found</li>';
+            }else {
+                displayRecommendations(filteredRecommendations);
+                recommendationList.style.display = "block"; // Show recommendations
+            }
+        }   
+
+        function validateDate() {
+            const inputDate = new Date(document.getElementById('dateWatched').value);
+            const currentDate = new Date();
+            if (inputDate > currentDate) {
+                alert('Please select a date before or equal to today.');
+                document.getElementById('dateWatched').value = ''; // Clear the input field
+            }
+        }
+
+
+    function displayRecommendations(recommendations) {
+        const recommendationList = document.getElementById("recommendations");
+
+        // Display new recommendations
+        recommendations.forEach(item => {
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+            a.href = "#"; // Set the href attribute of the <a> tag if needed
+
+            li.textContent = item;
+            a.appendChild(li); // Append the <li> to the <a>
+            recommendationList.appendChild(a); // Append the <a> to the recommendation list
+        });
+    }
+
+
+
+    </script>
+</body>
+</html>
