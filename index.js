@@ -35,7 +35,7 @@ app.get('/' , async (req,res) => {
 
 app.post('/submit', async (req, res) => {
     try {
-        const { movieName, summary, dateWatched, rating } = req.body; // Access form data from request body
+        const { movieName, summary, dateWatched, rating } = req.body;
 
         const result = await axios.get(`http://www.omdbapi.com/?t=${movieName}&apikey=${API_KEY}`);
         const data = result.data;
@@ -47,7 +47,6 @@ app.post('/submit', async (req, res) => {
             await db.query(`INSERT INTO mymovies (name, poster, summary, watcheddate, rating) VALUES ($1, $2, $3, $4, $5)`, [name, poster, summary, dateWatched, rating]);
             res.render("index.ejs", { movieFound: true });
         } else {
-            // Movie not found, pass a variable to the EJS file indicating that the movie was not found
             res.render("index.ejs", { movieFound: false });
         }
     } catch (err) {
