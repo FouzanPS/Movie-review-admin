@@ -12,10 +12,7 @@
             <table>
                 <tr>
                     <th><label for="movieName">Enter movie name:</label></th>
-                    <th><input type="text" id="movieName" name="movieName" placeholder="Search for the movie" required><br></th>
-                </tr>
-                <tr>
-                    <th colspan="2" style="text-align: center; font-weight: bolder;"><button id="recommend" onclick="updateRecommendations()">Recommend</button></th>
+                    <th><input type="text" id="movieName" name="movieName" placeholder="Movie name" required><br></th>
                 </tr>
                 <tr>
                     <th colspan="2">
@@ -35,12 +32,21 @@
                     <th><input name="rating" type="number" id="rating" min="1" max="10" placeholder="Rate it out of 10..." required><br></th>
                 </tr>
                 <tr>
-                    <th colspan="2" style="text-align: center; padding-top: 30px ; font-weight: bolder;"><input type="submit" value="Submit"></th>
+                    <th colspan="2" style="text-align: center; padding-top: 30px ; font-weight: bolder;"><input type="submit" value="Submit" ></th>
                 </tr>
             </table>
         </form>
     </div>
+    <% if (typeof movieFound !== 'undefined') { %>
+        <% if (movieFound === true) { %>
+            <script>alert("Movie found and added successfully!");</script>
+        <% } else { %>
+            <script>alert("Movie not found. Please check the movie name and try again.");</script>
+        <% } %>
+    <% } %>
+    
     <script>
+        
          const recommendationsData = [
             "Apple",
             "Banana",
