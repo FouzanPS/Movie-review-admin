@@ -11,11 +11,11 @@ const port = 3000;
 const API_KEY = process.env.API_KEY
 
 const db = new pg.Client({
-    host: 'localhost',
-    user: 'postgres',
-    database: 'movies',
-    password: 'fouzan@14',
-    port: 5432
+    host: process.env.PG_HOST,
+    user: process.env.PG_USER,
+    database: process.env.PG_DATABASE,
+    password: process.env.PG_PASSWORD,
+    port: process.env.PG_PORT
 })
 
 db.connect()
